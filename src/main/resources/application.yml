@@ -1,0 +1,68 @@
+server:
+  port: ${port:8080}
+
+spring:
+  application:
+    name: ${name:recognize}
+  profiles:
+    active: ${profiles_active:local}]
+  servlet:
+    multipart:
+      max-file-size: ${max_file_size:1GB}
+      max-request-size: ${max_request_size:1GB}
+      enabled: true
+
+app:
+  google:
+    apiKey: ${GOOGLE_API_KEY}
+      
+management:
+  health:
+    rabbit:
+      enabled: true
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+  endpoints:
+    web:
+      base-path: "/"
+      path-mapping:
+        health: "healthcheck"
+      exposure:
+        include: health, info
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    web:
+      exposure:
+        include: prometheus,health,env,info
+    health:
+      show-details: "ALWAYS"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+info:
+  build:
+    groupId: '@project.groupId@'
+    artifactId: '@project.artifactId@'
+    version: '@project.version@'
+    date: '@timestamp@'
+
+springdoc:
+  show-actuator: false
+  version: '@springdoc.version@'
+  swagger-ui:
+    use-root-path: true
+    operationsSorter: method
+  cache:
+      disabled: true
+
+logging:
+  level:
+    root: ${logging_level:INFO}

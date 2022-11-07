@@ -7,5 +7,14 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TranscriptionDTO {
-	String message;
+	private String message;
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 }

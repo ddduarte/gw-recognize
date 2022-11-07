@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.thecodeforce.recognize.demo.executor.RecognitionExecutor;
+import br.com.thecodeforce.recognize.demo.executor.RecognitionGoogleExecutor;
 import br.com.thecodeforce.recognize.demo.model.TranscriptionDTO;
 import br.com.thecodeforce.recognize.demo.rest.RecognizeResurcesInterface;
 import io.swagger.annotations.Api;
@@ -22,13 +22,13 @@ import reactor.core.publisher.Mono;
 public class RecognizeResurcesImpl implements RecognizeResurcesInterface {
 
 	@Autowired
-	private RecognitionExecutor recognitionExecutor;
+	private RecognitionGoogleExecutor recognitionGoogleExecutor;
 
 	@Override
-	@PostMapping	
+	@PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.OK)
 	public Mono<TranscriptionDTO> recognize(@RequestPart("voice_data") Mono<FilePart> voiceData) {
-		return recognitionExecutor.execute(voiceData);
+		return recognitionGoogleExecutor.execute(voiceData);
 	}
 
 }
